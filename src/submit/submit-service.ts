@@ -1,4 +1,5 @@
 import { GitRepository } from "../git/git-repository.js";
+import { ensureNoPausedRestack, untrackedBranchError } from "../errors.js";
 import type {
   CreatePullRequestRequest,
   PullRequest,
@@ -51,7 +52,7 @@ export class SubmitService {
   ) {}
 
   public submit(request: SubmitRequest, prepareBranches?: () => void): void {
-    this.ensureReadyToSubmit();
+    ensureNoPausedRestack(this.store);
     let metadata = this.store.loadMetadata();
     this.validateSelectedBranch(metadata, request.branch);
     this.printExecutionMode(request);
@@ -138,10 +139,7 @@ export class SubmitService {
     branch: string,
   ): void {
     if (!new StackGraph(metadata).isTracked(branch)) {
-      throw new Error(
-        `Cannot perform this operation on untracked branch ${branch}.\n` +
-          "You can track it by specifying its parent with maol-stack track.",
-      );
+      throw untrackedBranchError(branch);
     }
   }
 
@@ -410,14 +408,6 @@ export class SubmitService {
           .join("\n") +
         "\n\n",
     );
-  }
-
-  private ensureReadyToSubmit(): void {
-    if (this.store.loadOperation()) {
-      throw new Error(
-        "a restack is paused; run maol-stack continue or maol-stack abort first",
-      );
-    }
   }
 }
 

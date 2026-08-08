@@ -1,13 +1,12 @@
-import { createRequire } from "node:module";
-
-import type { CheckoutChoice } from "../commands/command-controller.js";
-
-const require = createRequire(import.meta.url);
-const colors = require("kleur") as ColorLibrary;
-colors.gray = colors.dim;
-colors.grey = colors.dim;
-
-const prompt = require("prompts") as PromptFunction;
+import type { CheckoutChoice } from "../output/graph-rows.js";
+import {
+  cancelPrompt,
+  colors,
+  prompt,
+  PromptCancelledError,
+  type PromptChoice,
+  suggestBranches,
+} from "./prompt-library.js";
 
 const GRAPH_COLORS = [
   "76;203;241",
@@ -30,40 +29,6 @@ type MoveParentSelectorRequest = {
   readonly branch: string;
   readonly choices: readonly CheckoutChoice[];
 };
-
-type PromptChoice = {
-  readonly title: string;
-  readonly value: string;
-};
-
-type PromptQuestion = {
-  readonly choices: readonly PromptChoice[];
-  readonly initial: number;
-  readonly message: string;
-  readonly name: "branch";
-  readonly suggest: SuggestFunction;
-  readonly type: "autocomplete";
-};
-
-type PromptFunction = (
-  question: PromptQuestion,
-  options: { readonly onCancel: () => never },
-) => Promise<{ readonly branch?: string }>;
-
-type SuggestFunction = (
-  input: string,
-  choices: readonly PromptChoice[],
-) => Promise<readonly PromptChoice[]>;
-
-type ColorLibrary = {
-  enabled: boolean;
-  dim(value: string): string;
-  gray(value: string): string;
-  grey(value: string): string;
-  yellow(value: string): string;
-};
-
-export class PromptCancelledError extends Error {}
 
 export async function selectBranch(
   request: BranchSelectorRequest,
@@ -155,22 +120,6 @@ function trueColor(color: string, value: string): string {
 
 function graphColor(lane: number): string {
   return GRAPH_COLORS[lane % GRAPH_COLORS.length] as string;
-}
-
-function suggestBranches(
-  input: string,
-  choices: readonly PromptChoice[],
-): Promise<readonly PromptChoice[]> {
-  const normalizedInput = input.toLocaleLowerCase();
-  return Promise.resolve(
-    choices.filter(({ value }) =>
-      value.toLocaleLowerCase().includes(normalizedInput),
-    ),
-  );
-}
-
-function cancelPrompt(): never {
-  throw new PromptCancelledError();
 }
 
 function eraseLastLine(): void {

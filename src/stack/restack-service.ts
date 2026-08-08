@@ -3,6 +3,11 @@ import {
   type RebaseResult,
   WorktreeBranchError,
 } from "../git/git-repository.js";
+import {
+  ensureNoPausedRestack,
+  requireExistingBranch,
+  untrackedBranchError,
+} from "../errors.js";
 import { MetadataStore } from "../metadata/metadata-store.js";
 import type {
   RepositoryMetadata,
@@ -44,17 +49,12 @@ export class RestackService {
   ) {}
 
   public start(request: RestackRequest): void {
-    this.ensureNoOperation();
+    ensureNoPausedRestack(this.store);
     const metadata = this.store.loadMetadata();
     const graph = new StackGraph(metadata);
-    if (!this.repository.branchExists(request.branch)) {
-      throw new Error(`Could not find branch ${request.branch}.`);
-    }
+    requireExistingBranch(this.repository, request.branch);
     if (!graph.isTracked(request.branch)) {
-      throw new Error(
-        `Cannot perform this operation on untracked branch ${request.branch}.\n` +
-          "You can track it by specifying its parent with maol-stack track.",
-      );
+      throw untrackedBranchError(request.branch);
     }
     const snapshot = this.store.captureSnapshot(
       metadata,
@@ -147,7 +147,7 @@ export class RestackService {
   }
 
   public undo(): void {
-    this.ensureNoOperation();
+    ensureNoPausedRestack(this.store);
     this.repository.ensureClean();
     const snapshot = this.store.popSnapshot();
     this.restoreSnapshot(snapshot, "restore-worktree");
@@ -420,14 +420,6 @@ export class RestackService {
       throw new Error("No maol-stack operation to continue.");
     }
     return operation;
-  }
-
-  private ensureNoOperation(): void {
-    if (this.store.loadOperation()) {
-      throw new Error(
-        "a restack is paused; run maol-stack continue or maol-stack abort first",
-      );
-    }
   }
 }
 

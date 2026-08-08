@@ -1,5 +1,17 @@
 import type { RepositoryMetadata } from "./schemas.js";
 
+export const COMMON_TRUNK_NAMES: readonly string[] = [
+  "main",
+  "master",
+  "development",
+  "develop",
+  "dev",
+  "green",
+  "staging",
+  "prod",
+  "production",
+];
+
 export function configuredTrunks(metadata: RepositoryMetadata): string[] {
   return [...new Set([...(metadata.trunks ?? []), metadata.trunk])];
 }

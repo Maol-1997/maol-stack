@@ -1,14 +1,13 @@
-import { createRequire } from "node:module";
-
-import { PromptCancelledError } from "./branch-selector.js";
+import { COMMON_TRUNK_NAMES } from "../metadata/trunks.js";
 import { brightBlue } from "../output/colors.js";
-
-const require = createRequire(import.meta.url);
-const colors = require("kleur") as ColorLibrary;
-colors.gray = colors.dim;
-colors.grey = colors.dim;
-
-const prompt = require("prompts") as PromptFunction;
+import {
+  cancelPrompt,
+  colors,
+  prompt,
+  PromptCancelledError,
+  type PromptChoice,
+  suggestBranches,
+} from "./prompt-library.js";
 
 export type StagingAction =
   "abort" | "all" | "edit" | "empty" | "patch" | "update";
@@ -22,69 +21,6 @@ type StagingSelectorRequest = {
   readonly hasTrackedChanges: boolean;
   readonly hasUntrackedChanges: boolean;
   readonly operation: "create" | "modify";
-};
-
-type PromptChoice = {
-  readonly selected?: boolean;
-  readonly title: string;
-  readonly value: string;
-};
-
-type AutocompleteQuestion = {
-  readonly choices: readonly PromptChoice[];
-  readonly initial?: number | string;
-  readonly message: string;
-  readonly name: "branch";
-  readonly suggest: SuggestFunction;
-  readonly type: "autocomplete";
-};
-
-type ConfirmQuestion = {
-  readonly initial: boolean;
-  readonly message: string;
-  readonly name: "value";
-  readonly type: "confirm";
-};
-
-type SelectQuestion = {
-  readonly choices: readonly PromptChoice[];
-  readonly message: string;
-  readonly name: "value";
-  readonly type: "select";
-};
-
-type MultiselectQuestion = {
-  readonly choices: readonly PromptChoice[];
-  readonly instructions: string;
-  readonly message: string;
-  readonly name: "sibling";
-  readonly type: "multiselect";
-};
-
-type PromptQuestion =
-  AutocompleteQuestion | ConfirmQuestion | MultiselectQuestion | SelectQuestion;
-
-type PromptFunction = (
-  question: PromptQuestion,
-  options: { readonly onCancel: () => never },
-) => Promise<{
-  readonly branch?: string;
-  readonly sibling?: readonly string[];
-  readonly value?: boolean | string;
-}>;
-
-type SuggestFunction = (
-  input: string,
-  choices: readonly PromptChoice[],
-) => Promise<readonly PromptChoice[]>;
-
-type ColorLibrary = {
-  dim(value: string): string;
-  gray(value: string): string;
-  grey(value: string): string;
-  cyan(value: string): string;
-  yellow(value: string): string;
-  green(value: string): string;
 };
 
 export async function selectTrackParent(
@@ -233,18 +169,6 @@ function stagingChoices(request: StagingSelectorRequest): PromptChoice[] {
   return choices;
 }
 
-function suggestBranches(
-  input: string,
-  choices: readonly PromptChoice[],
-): Promise<readonly PromptChoice[]> {
-  const normalizedInput = input.toLocaleLowerCase();
-  return Promise.resolve(
-    choices.filter(({ value }) =>
-      value.toLocaleLowerCase().includes(normalizedInput),
-    ),
-  );
-}
-
 function suggestAllBranches(
   _input: string,
   choices: readonly PromptChoice[],
@@ -272,20 +196,4 @@ function compareTrunkNames(
     return 1;
   }
   return left.localeCompare(right);
-}
-
-const COMMON_TRUNK_NAMES: readonly string[] = [
-  "main",
-  "master",
-  "development",
-  "develop",
-  "dev",
-  "green",
-  "staging",
-  "prod",
-  "production",
-];
-
-function cancelPrompt(): never {
-  throw new PromptCancelledError();
 }
