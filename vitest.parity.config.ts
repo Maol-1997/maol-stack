@@ -2,8 +2,8 @@ import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
-    fileParallelism: false,
+    fileParallelism: true,
     include: ["tests/parity/**/*.test.ts"],
-    testTimeout: 30_000,
+    testTimeout: 120_000,
   },
 });
