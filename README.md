@@ -118,8 +118,10 @@ Before a mutation it records branch refs, metadata, the active branch, and a
 binary worktree patch. This supports `abort` and `undo`, including restoring a
 change consumed by `modify` as an unstaged local modification.
 
-The differential suite currently has 178 passing comparisons against a
-reference stacked-branch CLI:
+The differential suite currently has 171 passing comparisons against a
+reference stacked-branch CLI, with 10 known failures and 2 skipped. See
+[PARITY.md](PARITY.md) for what those failures are, why they are expected, and
+how to tell a real regression apart from them. The comparisons cover:
 
 - clean and no-op descendant restacks;
 - content, add/add, and modify/delete conflicts;
@@ -143,8 +145,8 @@ reference stacked-branch CLI:
 It compares exit status, functional stdout/stderr, active/detached state,
 rebase state, porcelain status, branch trees, commit counts, and the ancestry
 matrix. Stateful `tip:` blocks are removed from the comparison because their
-counters live in the reference CLI's global configuration. Run the suite only
-on a machine with the configured reference executable available:
+counters live in the reference CLI's global configuration. The suite needs the
+configured reference executable and its credentials, so it cannot run in CI:
 
 ```sh
 npm run test:parity
