@@ -118,10 +118,9 @@ Before a mutation it records branch refs, metadata, the active branch, and a
 binary worktree patch. This supports `abort` and `undo`, including restoring a
 change consumed by `modify` as an unstaged local modification.
 
-The differential suite currently has 171 passing comparisons against a
-reference stacked-branch CLI, with 10 known failures and 2 skipped. See
-[PARITY.md](PARITY.md) for what those failures are, why they are expected, and
-how to tell a real regression apart from them. The comparisons cover:
+The differential suite currently has 173 passing comparisons against a
+reference stacked-branch CLI, with 10 skipped. See [PARITY.md](PARITY.md) for
+what is skipped and why. The comparisons cover:
 
 - clean and no-op descendant restacks;
 - content, add/add, and modify/delete conflicts;
