@@ -1,11 +1,11 @@
 import { describe, expect, test } from "vitest";
 
-import { referenceDriver, stacklineDriver } from "./parity-fixture.js";
+import { referenceDriver, maolStackDriver } from "./parity-fixture.js";
 import { defaultSubmitScenario, runSubmitDryRun } from "./submit-scenarios.js";
 
 describe("Reference CLI submit output parity", () => {
   test("matches a non-interactive dry run for a new stack", () => {
-    expect(runSubmitDryRun(stacklineDriver, defaultSubmitScenario())).toEqual(
+    expect(runSubmitDryRun(maolStackDriver, defaultSubmitScenario())).toEqual(
       runSubmitDryRun(referenceDriver, defaultSubmitScenario()),
     );
   });
@@ -15,7 +15,7 @@ describe("Reference CLI submit output parity", () => {
       ...defaultSubmitScenario(),
       stackContents: "empty",
     } as const;
-    expect(runSubmitDryRun(stacklineDriver, scenario)).toEqual(
+    expect(runSubmitDryRun(maolStackDriver, scenario)).toEqual(
       runSubmitDryRun(referenceDriver, scenario),
     );
   });

@@ -251,7 +251,7 @@ export class SubmitService {
         : undefined;
     if (!knownRemoteRevision && input.remoteRevision !== input.localRevision) {
       throw new Error(
-        `remote branch ${input.remote}/${input.branch} already exists and was not submitted by Stackline; use --force to overwrite it`,
+        `remote branch ${input.remote}/${input.branch} already exists and was not submitted by maol-stack; use --force to overwrite it`,
       );
     }
     if (knownRemoteRevision && knownRemoteRevision !== input.remoteRevision) {

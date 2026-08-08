@@ -4,7 +4,7 @@ import {
   ParityRepository,
   referenceDriver,
   requireSuccessfulCommand,
-  stacklineDriver,
+  maolStackDriver,
   type CliDriver,
 } from "./parity-fixture.js";
 
@@ -12,7 +12,7 @@ const PARITY_REMOTE = "https://github.com/Maol-1997/claude-code-statusline.git";
 
 describe("Reference CLI submit restack parity", () => {
   test("does not restack branches during a dry run", () => {
-    expect(runRestackDryRun(stacklineDriver)).toEqual(
+    expect(runRestackDryRun(maolStackDriver)).toEqual(
       runRestackDryRun(referenceDriver),
     );
   });

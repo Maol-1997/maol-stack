@@ -4,31 +4,31 @@ import {
   ParityRepository,
   referenceDriver,
   requireSuccessfulCommand,
-  stacklineDriver,
+  maolStackDriver,
   type CliDriver,
 } from "./parity-fixture.js";
 
 describe("Reference CLI create option parity", () => {
   test("matches creating onto an explicit parent", () => {
-    expect(runCreateOnto(stacklineDriver)).toEqual(
+    expect(runCreateOnto(maolStackDriver)).toEqual(
       runCreateOnto(referenceDriver),
     );
   });
 
   test("matches inserting a branch before one child", () => {
-    expect(runCreateInsert(stacklineDriver)).toEqual(
+    expect(runCreateInsert(maolStackDriver)).toEqual(
       runCreateInsert(referenceDriver),
     );
   });
 
   test("matches an ambiguous non-interactive insert", () => {
     expect(
-      normalizeConcurrentRestacks(runAmbiguousInsert(stacklineDriver)),
+      normalizeConcurrentRestacks(runAmbiguousInsert(maolStackDriver)),
     ).toEqual(normalizeConcurrentRestacks(runAmbiguousInsert(referenceDriver)));
   });
 
   test("matches non-interactive patch selection failure", () => {
-    expect(runPatchSelection(stacklineDriver)).toEqual(
+    expect(runPatchSelection(maolStackDriver)).toEqual(
       runPatchSelection(referenceDriver),
     );
   });

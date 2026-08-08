@@ -20,10 +20,10 @@ export class GitFixture {
   public readonly controller: CommandController;
 
   public constructor() {
-    this.root = mkdtempSync(join(tmpdir(), "stackline-test-"));
+    this.root = mkdtempSync(join(tmpdir(), "maol-stack-test-"));
     this.git(["init", "--quiet", "--initial-branch", "main"]);
-    this.git(["config", "user.name", "Stackline Test"]);
-    this.git(["config", "user.email", "stackline@localhost"]);
+    this.git(["config", "user.name", "maol-stack Test"]);
+    this.git(["config", "user.email", "maol-stack@localhost"]);
     this.git(["commit", "--allow-empty", "--quiet", "--message", "trunk"]);
     this.repository = GitRepository.discover(this.root);
     this.store = new MetadataStore(this.repository);

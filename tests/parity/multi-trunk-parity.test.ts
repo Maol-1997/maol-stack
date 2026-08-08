@@ -4,37 +4,37 @@ import {
   ParityRepository,
   referenceDriver,
   requireSuccessfulCommand,
-  stacklineDriver,
+  maolStackDriver,
   type CliDriver,
 } from "./parity-fixture.js";
 
 describe("Reference CLI multiple trunk parity", () => {
   test("matches adding and listing an additional trunk", () => {
-    expect(runAdditionalTrunkScenario(stacklineDriver)).toEqual(
+    expect(runAdditionalTrunkScenario(maolStackDriver)).toEqual(
       runAdditionalTrunkScenario(referenceDriver),
     );
   });
 
   test("matches independent stacks rooted at different trunks", () => {
-    expect(runIndependentTrunkStacks(stacklineDriver)).toEqual(
+    expect(runIndependentTrunkStacks(maolStackDriver)).toEqual(
       runIndependentTrunkStacks(referenceDriver),
     );
   });
 
   test("matches interactive checkout across all trunks", () => {
-    expect(runAllTrunkCheckout(stacklineDriver)).toEqual(
+    expect(runAllTrunkCheckout(maolStackDriver)).toEqual(
       runAllTrunkCheckout(referenceDriver),
     );
   });
 
   test("matches additional trunk validation errors", () => {
-    expect(runAdditionalTrunkErrors(stacklineDriver)).toEqual(
+    expect(runAdditionalTrunkErrors(maolStackDriver)).toEqual(
       runAdditionalTrunkErrors(referenceDriver),
     );
   });
 
   test("matches moving a stack across trunks interactively", () => {
-    expect(runAllTrunkMove(stacklineDriver)).toEqual(
+    expect(runAllTrunkMove(maolStackDriver)).toEqual(
       runAllTrunkMove(referenceDriver),
     );
   });

@@ -4,61 +4,61 @@ import {
   ParityRepository,
   referenceDriver,
   requireSuccessfulCommand,
-  stacklineDriver,
+  maolStackDriver,
   type CliDriver,
 } from "./parity-fixture.js";
 
 describe("Reference CLI unhappy-path parity", () => {
   test("matches already-tracked, trunk, and missing-branch tracking", () => {
-    expect(runTrackingFailures(stacklineDriver)).toEqual(
+    expect(runTrackingFailures(maolStackDriver)).toEqual(
       runTrackingFailures(referenceDriver),
     );
   });
 
   test("matches invalid move validation without mutating the stack", () => {
-    expect(runInvalidMoves(stacklineDriver)).toEqual(
+    expect(runInvalidMoves(maolStackDriver)).toEqual(
       runInvalidMoves(referenceDriver),
     );
   });
 
   test("matches trunk guards and modify target validation", () => {
-    expect(runMutationGuards(stacklineDriver)).toEqual(
+    expect(runMutationGuards(maolStackDriver)).toEqual(
       runMutationGuards(referenceDriver),
     );
   });
 
   test("matches invalid create requests", () => {
-    expect(runInvalidCreates(stacklineDriver)).toEqual(
+    expect(runInvalidCreates(maolStackDriver)).toEqual(
       runInvalidCreates(referenceDriver),
     );
   });
 
   test("matches missing continue, abort, and undo operations", () => {
-    expect(runMissingOperations(stacklineDriver)).toEqual(
+    expect(runMissingOperations(maolStackDriver)).toEqual(
       runMissingOperations(referenceDriver),
     );
   });
 
   test("matches modify without staged changes", () => {
-    expect(runEmptyModify(stacklineDriver)).toEqual(
+    expect(runEmptyModify(maolStackDriver)).toEqual(
       runEmptyModify(referenceDriver),
     );
   });
 
   test("matches mutations attempted from an untracked branch", () => {
-    expect(runUntrackedMutations(stacklineDriver)).toEqual(
+    expect(runUntrackedMutations(maolStackDriver)).toEqual(
       runUntrackedMutations(referenceDriver),
     );
   });
 
   test("matches missing source and explicit parent validation", () => {
-    expect(runMissingBranchOptions(stacklineDriver)).toEqual(
+    expect(runMissingBranchOptions(maolStackDriver)).toEqual(
       runMissingBranchOptions(referenceDriver),
     );
   });
 
   test("matches squash on a tracked branch without commits", () => {
-    expect(runEmptyBranchSquash(stacklineDriver)).toEqual(
+    expect(runEmptyBranchSquash(maolStackDriver)).toEqual(
       runEmptyBranchSquash(referenceDriver),
     );
   });

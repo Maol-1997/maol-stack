@@ -3,7 +3,7 @@ import { describe, expect, test } from "vitest";
 import {
   ParityRepository,
   referenceDriver,
-  stacklineDriver,
+  maolStackDriver,
   type CliDriver,
   type CliResult,
 } from "./parity-fixture.js";
@@ -12,7 +12,7 @@ describe("Reference CLI parser parity", () => {
   test.each([{ args: [] }, { args: ["--help"] }, { args: ["--bogusflag"] }])(
     "shows independent top-level help for $args",
     ({ args }) => {
-      const result = runCommand(stacklineDriver, args);
+      const result = runCommand(maolStackDriver, args);
       expect(result.status).toBe(0);
       expect(result.stderr).toBe("");
       expect(result.stdout).toContain("maol-stack is a local, independent CLI");
@@ -44,13 +44,13 @@ describe("Reference CLI parser parity", () => {
     "untrack",
     "up",
   ])("shows branded %s command help", (command) => {
-    const result = runCommand(stacklineDriver, [command, "--help"]);
+    const result = runCommand(maolStackDriver, [command, "--help"]);
     expect(result.status).toBe(0);
     expect(result.stderr).toContain(`maol-stack ${command}`);
   });
 
   test("matches an unknown checkout option", () => {
-    expect(runCommand(stacklineDriver, ["checkout", "--bogusflag"])).toEqual(
+    expect(runCommand(maolStackDriver, ["checkout", "--bogusflag"])).toEqual(
       runCommand(referenceDriver, ["checkout", "--bogusflag"]),
     );
   });
@@ -60,7 +60,7 @@ describe("Reference CLI parser parity", () => {
     ["log", "--version"],
     ["--debug", "--version"],
   ])("matches global version handling for %s", (...args) => {
-    expect(normalizeVersion(runCommand(stacklineDriver, args))).toEqual(
+    expect(normalizeVersion(runCommand(maolStackDriver, args))).toEqual(
       normalizeVersion(runCommand(referenceDriver, args)),
     );
   });

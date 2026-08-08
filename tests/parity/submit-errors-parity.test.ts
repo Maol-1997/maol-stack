@@ -4,7 +4,7 @@ import {
   ParityRepository,
   referenceDriver,
   requireSuccessfulCommand,
-  stacklineDriver,
+  maolStackDriver,
   type CliDriver,
   type CliResult,
 } from "./parity-fixture.js";
@@ -19,20 +19,20 @@ const PARITY_REMOTE = "https://github.com/Maol-1997/claude-code-statusline.git";
 
 describe("Reference CLI submit error parity", () => {
   test("matches a dirty working tree", () => {
-    expect(runDirtySubmit(stacklineDriver)).toEqual(
+    expect(runDirtySubmit(maolStackDriver)).toEqual(
       runDirtySubmit(referenceDriver),
     );
   });
 
   test("matches an untracked current branch", () => {
-    expect(runUntrackedSubmit(stacklineDriver)).toEqual(
+    expect(runUntrackedSubmit(maolStackDriver)).toEqual(
       runUntrackedSubmit(referenceDriver),
     );
   });
 
   test("matches a repository without a GitHub remote", () => {
     expect(
-      normalizeRepositoryIdentityError(runMissingRemoteSubmit(stacklineDriver)),
+      normalizeRepositoryIdentityError(runMissingRemoteSubmit(maolStackDriver)),
     ).toEqual(
       normalizeRepositoryIdentityError(runMissingRemoteSubmit(referenceDriver)),
     );

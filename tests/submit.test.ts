@@ -132,7 +132,7 @@ describe("submit", () => {
   });
 
   test("rejects an existing unknown remote branch", () => {
-    fixture.pushWithoutStackline("first");
+    fixture.pushWithoutMaolStack("first");
     fixture.amendBranch("first");
 
     expect(() =>
@@ -141,11 +141,11 @@ describe("submit", () => {
         branch: "first",
         scope: "current-chain",
       }),
-    ).toThrow("was not submitted by Stackline");
+    ).toThrow("was not submitted by maol-stack");
   });
 
   test("allows an explicit force push over an unknown remote branch", () => {
-    fixture.pushWithoutStackline("first");
+    fixture.pushWithoutMaolStack("first");
     fixture.amendBranch("first");
 
     fixture.submit({
@@ -192,7 +192,7 @@ class SubmitFixture {
   public readonly gitFixture = new GitFixture();
   public readonly pullRequests = new FakePullRequestHost();
   private readonly remoteRoot = mkdtempSync(
-    join(tmpdir(), "stackline-remote-"),
+    join(tmpdir(), "maol-stack-remote-"),
   );
   private readonly controller: CommandController;
 
@@ -241,7 +241,7 @@ class SubmitFixture {
     ]);
   }
 
-  public pushWithoutStackline(branch: string): void {
+  public pushWithoutMaolStack(branch: string): void {
     this.gitFixture.git(["push", "origin", branch]);
   }
 

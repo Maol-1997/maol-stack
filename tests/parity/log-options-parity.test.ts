@@ -4,14 +4,14 @@ import {
   ParityRepository,
   referenceDriver,
   requireSuccessfulCommand,
-  stacklineDriver,
+  maolStackDriver,
   type CliDriver,
   type CliResult,
 } from "./parity-fixture.js";
 
 describe("Reference CLI log option parity", () => {
   test("matches filtering, orientation, and untracked branch options", () => {
-    expect(runLogOptions(stacklineDriver)).toEqual(
+    expect(runLogOptions(maolStackDriver)).toEqual(
       runLogOptions(referenceDriver),
     );
   });

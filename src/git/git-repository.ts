@@ -244,7 +244,7 @@ export class GitRepository {
       "push",
       "--staged",
       "--message",
-      "stackline restack staged changes",
+      "maol-stack restack staged changes",
     ]);
     return this.resolveRevision("refs/stash");
   }

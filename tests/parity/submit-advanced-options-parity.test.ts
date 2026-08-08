@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 
-import { referenceDriver, stacklineDriver } from "./parity-fixture.js";
+import { referenceDriver, maolStackDriver } from "./parity-fixture.js";
 import {
   defaultSubmitArgs,
   defaultSubmitScenario,
@@ -26,7 +26,7 @@ describe("Reference CLI advanced submit option parity", () => {
         "parity comment",
       ],
     };
-    expect(runSubmitDryRun(stacklineDriver, scenario)).toEqual(
+    expect(runSubmitDryRun(maolStackDriver, scenario)).toEqual(
       runSubmitDryRun(referenceDriver, scenario),
     );
   });
@@ -45,7 +45,7 @@ describe("Reference CLI advanced submit option parity", () => {
         "--cli",
       ],
     };
-    expect(runSubmitDryRun(stacklineDriver, scenario)).toEqual(
+    expect(runSubmitDryRun(maolStackDriver, scenario)).toEqual(
       runSubmitDryRun(referenceDriver, scenario),
     );
   });

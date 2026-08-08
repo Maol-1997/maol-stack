@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 
-import { referenceDriver, stacklineDriver } from "./parity-fixture.js";
+import { referenceDriver, maolStackDriver } from "./parity-fixture.js";
 import { defaultSubmitScenario, runSubmitDryRun } from "./submit-scenarios.js";
 
 describe.skip("Reference CLI-hosted repository gate for submit apply", () => {
@@ -15,7 +15,7 @@ describe.skip("Reference CLI-hosted repository gate for submit apply", () => {
         "--update-only",
       ],
     };
-    expect(runSubmitDryRun(stacklineDriver, scenario)).toEqual(
+    expect(runSubmitDryRun(maolStackDriver, scenario)).toEqual(
       runSubmitDryRun(referenceDriver, scenario),
     );
   });
@@ -26,7 +26,7 @@ describe.skip("Reference CLI-hosted repository gate for submit apply", () => {
       args: ["submit", "--stack", "--no-edit", "--no-interactive"],
       stackContents: "empty",
     } as const;
-    expect(runSubmitDryRun(stacklineDriver, scenario)).toEqual(
+    expect(runSubmitDryRun(maolStackDriver, scenario)).toEqual(
       runSubmitDryRun(referenceDriver, scenario),
     );
   });

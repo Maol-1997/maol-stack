@@ -4,13 +4,13 @@ import {
   ParityRepository,
   referenceDriver,
   requireSuccessfulCommand,
-  stacklineDriver,
+  maolStackDriver,
   type CliDriver,
 } from "./parity-fixture.js";
 
 describe("Reference CLI detached HEAD parity", () => {
   test("matches reads, mutations, and recovery from detached HEAD", () => {
-    expect(runDetachedHeadCommands(stacklineDriver)).toEqual(
+    expect(runDetachedHeadCommands(maolStackDriver)).toEqual(
       runDetachedHeadCommands(referenceDriver),
     );
   });

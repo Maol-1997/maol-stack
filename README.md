@@ -1,6 +1,6 @@
 # maol-stack
 
-Stackline is a clean-room Node.js CLI for stacked Git branches. Its
+maol-stack is a clean-room Node.js CLI for stacked Git branches. Its
 implementation and metadata are fully local, and stack submission talks
 directly to Git and GitHub through the installed `git` and `gh` commands.
 
@@ -24,7 +24,7 @@ From npm:
 npx maol-stack --version
 ```
 
-Stackline requires Node.js 22 or newer and an existing Git repository.
+maol-stack requires Node.js 22 or newer and an existing Git repository.
 
 ## Local workflow
 
@@ -41,14 +41,14 @@ npx maol-stack create feature-ui --all --message "feature: ui"
 npx maol-stack checkout feature-base
 npx maol-stack modify --all
 
-# Restack explicitly after changing a parent outside Stackline.
+# Restack explicitly after changing a parent outside maol-stack.
 npx maol-stack restack --upstack
 
 # Push every branch and create or update its stacked GitHub PR.
 npx maol-stack submit --stack
 ```
 
-If an explicit restack conflicts, Stackline leaves Git's rebase paused:
+If an explicit restack conflicts, maol-stack leaves Git's rebase paused:
 
 ```sh
 # Resolve files, then either continue or restore all saved branch tips.
@@ -97,7 +97,7 @@ npx maol-stack submit --stack --draft
 npx maol-stack submit
 ```
 
-Stackline records the last successfully pushed SHA. The default push uses an
+maol-stack records the last successfully pushed SHA. The default push uses an
 explicit `--force-with-lease` and refuses to overwrite a remote branch that
 changed since the previous submission. `--force` is available as an explicit
 override after reviewing the remote changes. An out-of-sync trunk does not
@@ -106,7 +106,7 @@ warning. The apply path uses the authenticated GitHub CLI (`gh`) directly.
 
 ## Restack safety and parity
 
-Stackline stores the logical parent and previous parent revision for every
+maol-stack stores the logical parent and previous parent revision for every
 tracked branch in Git's common directory. A restack rebases each branch with
 the equivalent of:
 
@@ -162,8 +162,8 @@ npx maol-stack mcp
 
 It exposes:
 
-- `run_stackline_cmd`, which runs a CLI command in a selected repository;
-- `learn_stackline`, which returns the safe stacked-branch workflow.
+- `run_maol_stack_cmd`, which runs a CLI command in a selected repository;
+- `learn_maol_stack`, which returns the safe stacked-branch workflow.
 
 ### Install in Claude Code
 

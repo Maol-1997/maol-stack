@@ -4,14 +4,14 @@ import {
   ParityRepository,
   referenceDriver,
   requireSuccessfulCommand,
-  stacklineDriver,
+  maolStackDriver,
   type CliDriver,
   type CliResult,
 } from "./parity-fixture.js";
 
 describe("Reference CLI log parity", () => {
   test("matches every built-in log form and alias", () => {
-    expect(runLogForms(stacklineDriver)).toEqual(runLogForms(referenceDriver));
+    expect(runLogForms(maolStackDriver)).toEqual(runLogForms(referenceDriver));
   });
 });
 

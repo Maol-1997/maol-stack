@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 
-import { referenceDriver, stacklineDriver } from "./parity-fixture.js";
+import { referenceDriver, maolStackDriver } from "./parity-fixture.js";
 import {
   defaultSubmitArgs,
   defaultSubmitScenario,
@@ -13,7 +13,7 @@ describe("Reference CLI submit selection parity", () => {
       ...defaultSubmitScenario(),
       args: defaultSubmitArgs().filter((argument) => argument !== "--stack"),
     };
-    expect(runSubmitDryRun(stacklineDriver, scenario)).toEqual(
+    expect(runSubmitDryRun(maolStackDriver, scenario)).toEqual(
       runSubmitDryRun(referenceDriver, scenario),
     );
   });
@@ -23,7 +23,7 @@ describe("Reference CLI submit selection parity", () => {
       ...defaultSubmitScenario(),
       args: [...defaultSubmitArgs(), "--branch", "parity-first"],
     };
-    expect(runSubmitDryRun(stacklineDriver, scenario)).toEqual(
+    expect(runSubmitDryRun(maolStackDriver, scenario)).toEqual(
       runSubmitDryRun(referenceDriver, scenario),
     );
   });
@@ -33,7 +33,7 @@ describe("Reference CLI submit selection parity", () => {
       ...defaultSubmitScenario(),
       stackContents: "empty-parent",
     } as const;
-    expect(runSubmitDryRun(stacklineDriver, scenario)).toEqual(
+    expect(runSubmitDryRun(maolStackDriver, scenario)).toEqual(
       runSubmitDryRun(referenceDriver, scenario),
     );
   });

@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 
-import { referenceDriver, stacklineDriver } from "./parity-fixture.js";
+import { referenceDriver, maolStackDriver } from "./parity-fixture.js";
 import {
   defaultSubmitArgs,
   defaultSubmitScenario,
@@ -13,7 +13,7 @@ describe("Reference CLI submit option parity", () => {
       ...defaultSubmitScenario(),
       args: [...defaultSubmitArgs(), "--draft"],
     };
-    expect(runSubmitDryRun(stacklineDriver, scenario)).toEqual(
+    expect(runSubmitDryRun(maolStackDriver, scenario)).toEqual(
       runSubmitDryRun(referenceDriver, scenario),
     );
   });
@@ -23,7 +23,7 @@ describe("Reference CLI submit option parity", () => {
       ...defaultSubmitScenario(),
       args: [...defaultSubmitArgs(), "--publish"],
     };
-    expect(runSubmitDryRun(stacklineDriver, scenario)).toEqual(
+    expect(runSubmitDryRun(maolStackDriver, scenario)).toEqual(
       runSubmitDryRun(referenceDriver, scenario),
     );
   });
@@ -33,7 +33,7 @@ describe("Reference CLI submit option parity", () => {
       ...defaultSubmitScenario(),
       args: [...defaultSubmitArgs(), "--update-only"],
     };
-    expect(runSubmitDryRun(stacklineDriver, scenario)).toEqual(
+    expect(runSubmitDryRun(maolStackDriver, scenario)).toEqual(
       runSubmitDryRun(referenceDriver, scenario),
     );
   });
@@ -43,7 +43,7 @@ describe("Reference CLI submit option parity", () => {
       ...defaultSubmitScenario(),
       args: ["ss", "--dry-run", "--no-edit", "--no-interactive"],
     };
-    expect(runSubmitDryRun(stacklineDriver, scenario)).toEqual(
+    expect(runSubmitDryRun(maolStackDriver, scenario)).toEqual(
       runSubmitDryRun(referenceDriver, scenario),
     );
   });
@@ -53,7 +53,7 @@ describe("Reference CLI submit option parity", () => {
       ...defaultSubmitScenario(),
       args: [...defaultSubmitArgs(), "--draft", "--publish"],
     };
-    expect(runSubmitDryRun(stacklineDriver, scenario)).toEqual(
+    expect(runSubmitDryRun(maolStackDriver, scenario)).toEqual(
       runSubmitDryRun(referenceDriver, scenario),
     );
   });

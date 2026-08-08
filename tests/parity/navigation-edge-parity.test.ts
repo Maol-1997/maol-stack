@@ -4,7 +4,7 @@ import {
   ParityRepository,
   referenceDriver,
   requireSuccessfulCommand,
-  stacklineDriver,
+  maolStackDriver,
   type CliDriver,
 } from "./parity-fixture.js";
 
@@ -12,7 +12,7 @@ describe("Reference CLI navigation edge parity", () => {
   test.each(["0", "-1", "abc", "1.5", "5"])(
     "matches up --steps %s",
     (steps) => {
-      expect(runNavigation(stacklineDriver, "up", steps)).toEqual(
+      expect(runNavigation(maolStackDriver, "up", steps)).toEqual(
         runNavigation(referenceDriver, "up", steps),
       );
     },
@@ -21,20 +21,20 @@ describe("Reference CLI navigation edge parity", () => {
   test.each(["0", "-1", "abc", "1.5", "5"])(
     "matches down --steps %s",
     (steps) => {
-      expect(runNavigation(stacklineDriver, "down", steps)).toEqual(
+      expect(runNavigation(maolStackDriver, "down", steps)).toEqual(
         runNavigation(referenceDriver, "down", steps),
       );
     },
   );
 
   test.each(["0", "-2", "abc", "1.5"])("matches log --steps %s", (steps) => {
-    expect(runLogEdge(stacklineDriver, ["--steps", steps])).toEqual(
+    expect(runLogEdge(maolStackDriver, ["--steps", steps])).toEqual(
       runLogEdge(referenceDriver, ["--steps", steps]),
     );
   });
 
   test("matches an unknown log format", () => {
-    expect(runLogEdge(stacklineDriver, ["bogus"])).toEqual(
+    expect(runLogEdge(maolStackDriver, ["bogus"])).toEqual(
       runLogEdge(referenceDriver, ["bogus"]),
     );
   });

@@ -4,32 +4,32 @@ import {
   ParityRepository,
   referenceDriver,
   requireSuccessfulCommand,
-  stacklineDriver,
+  maolStackDriver,
   type CliDriver,
   type CliResult,
 } from "./parity-fixture.js";
 
 describe("Reference CLI abort prompt parity", () => {
   test("matches confirming an interactive abort", () => {
-    expect(runAbort(stacklineDriver, "yes")).toEqual(
+    expect(runAbort(maolStackDriver, "yes")).toEqual(
       runAbort(referenceDriver, "yes"),
     );
   });
 
   test("matches declining an interactive abort", () => {
-    expect(runAbort(stacklineDriver, "no")).toEqual(
+    expect(runAbort(maolStackDriver, "no")).toEqual(
       runAbort(referenceDriver, "no"),
     );
   });
 
   test("matches cancelling an interactive abort at EOF", () => {
-    expect(runAbort(stacklineDriver, "eof")).toEqual(
+    expect(runAbort(maolStackDriver, "eof")).toEqual(
       runAbort(referenceDriver, "eof"),
     );
   });
 
   test("matches abort without force in non-interactive mode", () => {
-    expect(runAbort(stacklineDriver, "non-interactive")).toEqual(
+    expect(runAbort(maolStackDriver, "non-interactive")).toEqual(
       runAbort(referenceDriver, "non-interactive"),
     );
   });

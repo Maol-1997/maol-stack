@@ -4,7 +4,7 @@ import {
   ParityRepository,
   referenceDriver,
   requireSuccessfulCommand,
-  stacklineDriver,
+  maolStackDriver,
   type CliDriver,
 } from "./parity-fixture.js";
 
@@ -12,13 +12,13 @@ const PARITY_REMOTE = "https://github.com/Maol-1997/claude-code-statusline.git";
 
 describe("Reference CLI submit trunk parity", () => {
   test("matches a trunk behind its upstream", () => {
-    expect(runBehindTrunkSubmit(stacklineDriver, "require-synced")).toEqual(
+    expect(runBehindTrunkSubmit(maolStackDriver, "require-synced")).toEqual(
       runBehindTrunkSubmit(referenceDriver, "require-synced"),
     );
   });
 
   test("matches the out-of-sync trunk override", () => {
-    expect(runBehindTrunkSubmit(stacklineDriver, "ignore")).toEqual(
+    expect(runBehindTrunkSubmit(maolStackDriver, "ignore")).toEqual(
       runBehindTrunkSubmit(referenceDriver, "ignore"),
     );
   });

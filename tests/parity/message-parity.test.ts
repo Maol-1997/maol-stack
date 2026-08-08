@@ -3,25 +3,25 @@ import { describe, expect, test } from "vitest";
 import {
   ParityRepository,
   referenceDriver,
-  stacklineDriver,
+  maolStackDriver,
   type CliDriver,
 } from "./parity-fixture.js";
 
 describe("Reference CLI commit message parity", () => {
   test("matches a multi-paragraph create message", () => {
-    expect(runCreateMessage(stacklineDriver)).toEqual(
+    expect(runCreateMessage(maolStackDriver)).toEqual(
       runCreateMessage(referenceDriver),
     );
   });
 
   test("matches a multi-paragraph modify message", () => {
-    expect(runModifyMessage(stacklineDriver)).toEqual(
+    expect(runModifyMessage(maolStackDriver)).toEqual(
       runModifyMessage(referenceDriver),
     );
   });
 
   test("matches a multi-paragraph squash message", () => {
-    expect(runSquashMessage(stacklineDriver)).toEqual(
+    expect(runSquashMessage(maolStackDriver)).toEqual(
       runSquashMessage(referenceDriver),
     );
   });

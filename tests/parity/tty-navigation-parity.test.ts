@@ -4,56 +4,56 @@ import {
   ParityRepository,
   referenceDriver,
   requireSuccessfulCommand,
-  stacklineDriver,
+  maolStackDriver,
   type CliDriver,
   type CliResult,
 } from "./parity-fixture.js";
 
 describe("Reference CLI navigation and tracking prompt parity", () => {
   test("matches interactive move parent selection", () => {
-    expect(runInteractiveMove(stacklineDriver, "\u001B[B\r")).toEqual(
+    expect(runInteractiveMove(maolStackDriver, "\u001B[B\r")).toEqual(
       runInteractiveMove(referenceDriver, "\u001B[B\r"),
     );
   });
 
   test("matches fuzzy text in the move parent selector", () => {
-    expect(runInteractiveMove(stacklineDriver, "gam\r")).toEqual(
+    expect(runInteractiveMove(maolStackDriver, "gam\r")).toEqual(
       runInteractiveMove(referenceDriver, "gam\r"),
     );
   });
 
   test("matches interactive tracking parent selection", () => {
-    expect(runInteractiveTrack(stacklineDriver, "\r")).toEqual(
+    expect(runInteractiveTrack(maolStackDriver, "\r")).toEqual(
       runInteractiveTrack(referenceDriver, "\r"),
     );
   });
 
   test("matches cancelling the tracking selector at EOF", () => {
-    expect(runInteractiveTrack(stacklineDriver)).toEqual(
+    expect(runInteractiveTrack(maolStackDriver)).toEqual(
       runInteractiveTrack(referenceDriver),
     );
   });
 
   test("matches recursively tracking an untracked parent", () => {
-    expect(runRecursiveTrack(stacklineDriver)).toEqual(
+    expect(runRecursiveTrack(maolStackDriver)).toEqual(
       runRecursiveTrack(referenceDriver),
     );
   });
 
   test("matches confirmation when untracking a branch with children", () => {
-    expect(runInteractiveUntrack(stacklineDriver, "y\r")).toEqual(
+    expect(runInteractiveUntrack(maolStackDriver, "y\r")).toEqual(
       runInteractiveUntrack(referenceDriver, "y\r"),
     );
   });
 
   test("matches declining recursive untrack", () => {
-    expect(runInteractiveUntrack(stacklineDriver, "\r")).toEqual(
+    expect(runInteractiveUntrack(maolStackDriver, "\r")).toEqual(
       runInteractiveUntrack(referenceDriver, "\r"),
     );
   });
 
   test("matches cancelling recursive untrack at EOF", () => {
-    expect(runInteractiveUntrack(stacklineDriver)).toEqual(
+    expect(runInteractiveUntrack(maolStackDriver)).toEqual(
       runInteractiveUntrack(referenceDriver),
     );
   });

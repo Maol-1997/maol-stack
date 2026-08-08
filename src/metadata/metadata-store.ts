@@ -1,4 +1,4 @@
-import { existsSync, unlinkSync } from "node:fs";
+import { existsSync, renameSync, unlinkSync } from "node:fs";
 import { join } from "node:path";
 import { randomUUID } from "node:crypto";
 
@@ -16,6 +16,8 @@ import {
 import { configuredTrunks, trunkForBranch } from "./trunks.js";
 
 const MAX_UNDO_SNAPSHOTS = 20;
+const DIRECTORY_NAME = "maol-stack";
+const LEGACY_DIRECTORY_NAME = "stackline";
 
 export class MetadataStore {
   private readonly metadataPath: string;
@@ -23,19 +25,21 @@ export class MetadataStore {
   private readonly undoHistoryPath: string;
 
   public constructor(private readonly repository: GitRepository) {
+    adoptLegacyDirectory(repository.commonGitDirectory);
+    adoptLegacyDirectory(repository.gitDirectory);
     this.metadataPath = join(
       repository.commonGitDirectory,
-      "stackline",
+      DIRECTORY_NAME,
       "metadata.json",
     );
     this.operationPath = join(
       repository.gitDirectory,
-      "stackline",
+      DIRECTORY_NAME,
       "operation.json",
     );
     this.undoHistoryPath = join(
       repository.gitDirectory,
-      "stackline",
+      DIRECTORY_NAME,
       "undo.json",
     );
   }
@@ -46,7 +50,7 @@ export class MetadataStore {
 
   public loadMetadata(): RepositoryMetadata {
     if (!this.isInitialized()) {
-      throw new Error("repository is not initialized; run stackline init");
+      throw new Error("repository is not initialized; run maol-stack init");
     }
     const metadata = readValidatedJson(
       this.metadataPath,
@@ -158,4 +162,14 @@ export class MetadataStore {
 
 function optionalText(value: string): string | undefined {
   return value.length > 0 ? value : undefined;
+}
+
+// Repositories initialized before the rename store their state under the
+// previous product name. Adopt that directory instead of reinitializing.
+function adoptLegacyDirectory(gitDirectory: string): void {
+  const legacyDirectory = join(gitDirectory, LEGACY_DIRECTORY_NAME);
+  const currentDirectory = join(gitDirectory, DIRECTORY_NAME);
+  if (existsSync(legacyDirectory) && !existsSync(currentDirectory)) {
+    renameSync(legacyDirectory, currentDirectory);
+  }
 }

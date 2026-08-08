@@ -4,26 +4,26 @@ import {
   ParityRepository,
   referenceDriver,
   requireSuccessfulCommand,
-  stacklineDriver,
+  maolStackDriver,
   type CliDriver,
   type CliResult,
 } from "./parity-fixture.js";
 
 describe("Reference CLI stack CLI option parity", () => {
   test("matches checkout selection options with an explicit branch", () => {
-    expect(runCheckoutOptions(stacklineDriver)).toEqual(
+    expect(runCheckoutOptions(maolStackDriver)).toEqual(
       runCheckoutOptions(referenceDriver),
     );
   });
 
   test("matches non-interactive selector failures", () => {
-    expect(runSelectorFailures(stacklineDriver)).toEqual(
+    expect(runSelectorFailures(maolStackDriver)).toEqual(
       runSelectorFailures(referenceDriver),
     );
   });
 
   test("matches explicit untracked and missing branch checkout", () => {
-    expect(runUntrackedCheckout(stacklineDriver)).toEqual(
+    expect(runUntrackedCheckout(maolStackDriver)).toEqual(
       runUntrackedCheckout(referenceDriver),
     );
   });
@@ -34,13 +34,13 @@ describe("Reference CLI stack CLI option parity", () => {
     ["--upstack", "--only"],
     ["--upstack", "--downstack", "--only"],
   ])("matches restack scope precedence for %s", (...scopes) => {
-    expect(runConflictingRestackScopes(stacklineDriver, scopes)).toEqual(
+    expect(runConflictingRestackScopes(maolStackDriver, scopes)).toEqual(
       runConflictingRestackScopes(referenceDriver, scopes),
     );
   });
 
   test("matches positional multi-level navigation", () => {
-    expect(runPositionalNavigation(stacklineDriver)).toEqual(
+    expect(runPositionalNavigation(maolStackDriver)).toEqual(
       runPositionalNavigation(referenceDriver),
     );
   });

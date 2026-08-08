@@ -4,7 +4,7 @@ import {
   ParityRepository,
   referenceDriver,
   requireSuccessfulCommand,
-  stacklineDriver,
+  maolStackDriver,
   type CliDriver,
   type CliResult,
 } from "./parity-fixture.js";
@@ -13,19 +13,19 @@ const PARITY_REMOTE = "https://github.com/Maol-1997/claude-code-statusline.git";
 
 describe("Reference CLI multiple stack parity", () => {
   test("matches logging and navigating sibling stacks", () => {
-    expect(runSiblingStackNavigation(stacklineDriver)).toEqual(
+    expect(runSiblingStackNavigation(maolStackDriver)).toEqual(
       runSiblingStackNavigation(referenceDriver),
     );
   });
 
   test("submits only the selected sibling stack", () => {
-    expect(runSiblingStackSubmit(stacklineDriver)).toEqual(
+    expect(runSiblingStackSubmit(maolStackDriver)).toEqual(
       runSiblingStackSubmit(referenceDriver),
     );
   });
 
   test("matches a fork within one stack", () => {
-    expect(runForkedStackLog(stacklineDriver)).toEqual(
+    expect(runForkedStackLog(maolStackDriver)).toEqual(
       runForkedStackLog(referenceDriver),
     );
   });
@@ -33,20 +33,20 @@ describe("Reference CLI multiple stack parity", () => {
   test.each([false, true])(
     "matches a detailed fork with reverse=%s",
     (reverse) => {
-      expect(runForkedDetailedLog(stacklineDriver, reverse)).toEqual(
+      expect(runForkedDetailedLog(maolStackDriver, reverse)).toEqual(
         runForkedDetailedLog(referenceDriver, reverse),
       );
     },
   );
 
   test("matches needs-restack annotations in detailed and short logs", () => {
-    expect(runNeedsRestackLogs(stacklineDriver)).toEqual(
+    expect(runNeedsRestackLogs(maolStackDriver)).toEqual(
       runNeedsRestackLogs(referenceDriver),
     );
   });
 
   test("matches nested forks within one stack", () => {
-    expect(runNestedForkLog(stacklineDriver)).toEqual(
+    expect(runNestedForkLog(maolStackDriver)).toEqual(
       runNestedForkLog(referenceDriver),
     );
   });
@@ -54,14 +54,14 @@ describe("Reference CLI multiple stack parity", () => {
   test.each([false, true])(
     "matches nested detailed forks with reverse=%s",
     (reverse) => {
-      expect(runNestedForkDetailedLog(stacklineDriver, reverse)).toEqual(
+      expect(runNestedForkDetailedLog(maolStackDriver, reverse)).toEqual(
         runNestedForkDetailedLog(referenceDriver, reverse),
       );
     },
   );
 
   test("matches serialized state for multiple stacks", () => {
-    expect(runMultipleStackState(stacklineDriver)).toEqual(
+    expect(runMultipleStackState(maolStackDriver)).toEqual(
       runMultipleStackState(referenceDriver),
     );
   });

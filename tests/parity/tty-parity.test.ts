@@ -4,7 +4,7 @@ import {
   ParityRepository,
   referenceDriver,
   requireSuccessfulCommand,
-  stacklineDriver,
+  maolStackDriver,
   type CliDriver,
   type CliResult,
 } from "./parity-fixture.js";
@@ -13,7 +13,7 @@ const PARITY_REMOTE = "https://github.com/Maol-1997/claude-code-statusline.git";
 
 describe("Reference CLI TTY parity", () => {
   test("matches interactive submit dry-run output in a pseudo-terminal", () => {
-    expect(runInteractiveSubmit(stacklineDriver)).toEqual(
+    expect(runInteractiveSubmit(maolStackDriver)).toEqual(
       runInteractiveSubmit(referenceDriver),
     );
   });
@@ -25,25 +25,25 @@ describe("Reference CLI TTY parity", () => {
     ["filtered branch", "fea\r"],
     ["fallback branch", "zzz\r"],
   ])("matches checkout selection of the %s", (_, input) => {
-    expect(runInteractiveCheckout(stacklineDriver, input)).toEqual(
+    expect(runInteractiveCheckout(maolStackDriver, input)).toEqual(
       runInteractiveCheckout(referenceDriver, input),
     );
   });
 
   test("matches cancelling the checkout selector at EOF", () => {
-    expect(runInteractiveCheckout(stacklineDriver)).toEqual(
+    expect(runInteractiveCheckout(maolStackDriver)).toEqual(
       runInteractiveCheckout(referenceDriver),
     );
   });
 
   test("matches checkout selection for a forked stack", () => {
-    expect(runForkedCheckout(stacklineDriver)).toEqual(
+    expect(runForkedCheckout(maolStackDriver)).toEqual(
       runForkedCheckout(referenceDriver),
     );
   });
 
   test("matches a scrolled selector with more than ten branches", () => {
-    expect(runLongCheckout(stacklineDriver)).toEqual(
+    expect(runLongCheckout(maolStackDriver)).toEqual(
       runLongCheckout(referenceDriver),
     );
   });

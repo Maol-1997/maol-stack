@@ -3,20 +3,20 @@ import { describe, expect, test } from "vitest";
 import {
   ParityRepository,
   referenceDriver,
-  stacklineDriver,
+  maolStackDriver,
   type CliDriver,
   type CliResult,
 } from "./parity-fixture.js";
 
 describe("Reference CLI init parity", () => {
   test("matches inferred trunk initialization", () => {
-    expect(runInferredInit(stacklineDriver)).toEqual(
+    expect(runInferredInit(maolStackDriver)).toEqual(
       runInferredInit(referenceDriver),
     );
   });
 
   test("matches a non-interactive ambiguous trunk error", () => {
-    expect(runAmbiguousInit(stacklineDriver)).toEqual(
+    expect(runAmbiguousInit(maolStackDriver)).toEqual(
       runAmbiguousInit(referenceDriver),
     );
   });

@@ -3,14 +3,14 @@ import { describe, expect, test } from "vitest";
 import {
   ParityRepository,
   referenceDriver,
-  stacklineDriver,
+  maolStackDriver,
   type CliDriver,
   type CliResult,
 } from "./parity-fixture.js";
 
 describe("Reference CLI init prompt parity", () => {
   test("matches selecting a trunk other than the inferred branch", () => {
-    expect(runInteractiveInit(stacklineDriver)).toEqual(
+    expect(runInteractiveInit(maolStackDriver)).toEqual(
       runInteractiveInit(referenceDriver),
     );
   });

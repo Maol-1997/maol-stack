@@ -13,12 +13,12 @@ import {
 import { brightRed } from "./output/colors.js";
 import { PromptCancelledError } from "./prompts/prompt-library.js";
 import { RestackConflictError } from "./stack/restack-service.js";
-import { STACKLINE_VERSION } from "./version.js";
+import { MAOL_STACK_VERSION } from "./version.js";
 
 const rawArguments = expandDefaultAliases(process.argv.slice(2));
 
 if (rawArguments.includes("--version")) {
-  process.stdout.write(`${STACKLINE_VERSION}\n`);
+  process.stdout.write(`${MAOL_STACK_VERSION}\n`);
 } else if (shouldShowTopLevelHelp(rawArguments)) {
   process.stdout.write(`${TOP_LEVEL_HELP}\n`);
 } else {

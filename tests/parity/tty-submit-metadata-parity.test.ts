@@ -4,7 +4,7 @@ import {
   ParityRepository,
   referenceDriver,
   requireSuccessfulCommand,
-  stacklineDriver,
+  maolStackDriver,
   type CliDriver,
   type CliResult,
 } from "./parity-fixture.js";
@@ -13,7 +13,7 @@ const PARITY_REMOTE = "https://github.com/Maol-1997/claude-code-statusline.git";
 
 describe("Reference CLI submit metadata prompt parity", () => {
   test("matches cancelling metadata entry at EOF", () => {
-    expect(runInteractiveMetadata(stacklineDriver)).toEqual(
+    expect(runInteractiveMetadata(maolStackDriver)).toEqual(
       runInteractiveMetadata(referenceDriver),
     );
   });

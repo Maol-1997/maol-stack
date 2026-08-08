@@ -4,43 +4,43 @@ import {
   ParityRepository,
   referenceDriver,
   requireSuccessfulCommand,
-  stacklineDriver,
+  maolStackDriver,
   type CliDriver,
 } from "./parity-fixture.js";
 
 describe("Reference CLI modify option parity", () => {
   test("matches modifying a downstack branch with --into", () => {
-    expect(runModifyInto(stacklineDriver)).toEqual(
+    expect(runModifyInto(maolStackDriver)).toEqual(
       runModifyInto(referenceDriver),
     );
   });
 
   test("rejects modifying an upstack branch with --into", () => {
-    expect(runInvalidModifyInto(stacklineDriver)).toEqual(
+    expect(runInvalidModifyInto(maolStackDriver)).toEqual(
       runInvalidModifyInto(referenceDriver),
     );
   });
 
   test("matches creating a new commit", () => {
-    expect(runModifyCommit(stacklineDriver)).toEqual(
+    expect(runModifyCommit(maolStackDriver)).toEqual(
       runModifyCommit(referenceDriver),
     );
   });
 
   test("matches resetting the amended commit author", () => {
-    expect(runModifyResetAuthor(stacklineDriver)).toEqual(
+    expect(runModifyResetAuthor(maolStackDriver)).toEqual(
       runModifyResetAuthor(referenceDriver),
     );
   });
 
   test("matches an interactive rebase with a no-op sequence editor", () => {
-    expect(runInteractiveRebase(stacklineDriver)).toEqual(
+    expect(runInteractiveRebase(maolStackDriver)).toEqual(
       runInteractiveRebase(referenceDriver),
     );
   });
 
   test("matches patch selection receiving EOF", () => {
-    expect(runModifyPatchSelection(stacklineDriver)).toEqual(
+    expect(runModifyPatchSelection(maolStackDriver)).toEqual(
       runModifyPatchSelection(referenceDriver),
     );
   });

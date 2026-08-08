@@ -12,7 +12,7 @@ import { dirname, join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 
 const FIXED_GIT_DATE = "2026-01-01T00:00:00Z";
-const STACKLINE_CLI_PATH = resolve("dist/cli.js");
+const MAOL_STACK_CLI_PATH = resolve("dist/cli.js");
 const PTY_DRIVER_PATH = resolve("tests/helpers/pty-driver.py");
 const GH_AUTH_TOKEN = readGitHubToken();
 const REFERENCE_CONFIG_NAME = ["graph", "ite"].join("");
@@ -35,7 +35,7 @@ export type GitObservation = {
 };
 
 export type CliDriver = {
-  readonly name: "reference" | "stackline";
+  readonly name: "reference" | "maol-stack";
   run(repository: ParityRepository, args: readonly string[]): CliResult;
   runInTty(
     repository: ParityRepository,
@@ -45,8 +45,8 @@ export type CliDriver = {
 };
 
 export class ParityRepository {
-  public readonly root = mkdtempSync(join(tmpdir(), "stackline-parity-"));
-  public readonly home = mkdtempSync(join(tmpdir(), "stackline-home-"));
+  public readonly root = mkdtempSync(join(tmpdir(), "maol-stack-parity-"));
+  public readonly home = mkdtempSync(join(tmpdir(), "maol-stack-home-"));
   private readonly worktreeRoots: string[] = [];
 
   public constructor(
@@ -103,7 +103,7 @@ export class ParityRepository {
   }
 
   public checkoutInTemporaryWorktree(branch: string): void {
-    const worktreeRoot = mkdtempSync(join(tmpdir(), "stackline-worktree-"));
+    const worktreeRoot = mkdtempSync(join(tmpdir(), "maol-stack-worktree-"));
     rmSync(worktreeRoot, { recursive: true, force: true });
     this.git(["worktree", "add", "--quiet", worktreeRoot, branch]);
     this.worktreeRoots.push(worktreeRoot);
@@ -238,13 +238,13 @@ function replaceReferenceVocabulary(output: string): string {
     .replaceAll("maol-stack stack", "stack");
 }
 
-export const stacklineDriver: CliDriver = {
-  name: "stackline",
+export const maolStackDriver: CliDriver = {
+  name: "maol-stack",
   run: (repository, args) =>
     repository.normalizeResult(
       invoke(
         process.execPath,
-        [STACKLINE_CLI_PATH, "--cwd", repository.root, ...args],
+        [MAOL_STACK_CLI_PATH, "--cwd", repository.root, ...args],
         repository.root,
         repository.home,
       ),
@@ -254,7 +254,7 @@ export const stacklineDriver: CliDriver = {
       invokeInPty(
         [
           process.execPath,
-          STACKLINE_CLI_PATH,
+          MAOL_STACK_CLI_PATH,
           "--cwd",
           repository.root,
           ...args,

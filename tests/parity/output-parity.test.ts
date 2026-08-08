@@ -3,7 +3,7 @@ import { describe, expect, test } from "vitest";
 import {
   ParityRepository,
   referenceDriver,
-  stacklineDriver,
+  maolStackDriver,
   type CliDriver,
   type CliResult,
   requireSuccessfulCommand,
@@ -11,61 +11,61 @@ import {
 
 describe("Reference CLI output parity", () => {
   test("matches initialization, empty creation, log, and no-op restack", () => {
-    expect(runBasicTranscript(stacklineDriver)).toEqual(
+    expect(runBasicTranscript(maolStackDriver)).toEqual(
       runBasicTranscript(referenceDriver),
     );
   });
 
   test("matches creation with committed changes", () => {
-    expect(runCreateTranscript(stacklineDriver)).toEqual(
+    expect(runCreateTranscript(maolStackDriver)).toEqual(
       runCreateTranscript(referenceDriver),
     );
   });
 
   test("matches navigation and relationship output", () => {
-    expect(runNavigationTranscript(stacklineDriver)).toEqual(
+    expect(runNavigationTranscript(maolStackDriver)).toEqual(
       runNavigationTranscript(referenceDriver),
     );
   });
 
   test("matches modify with a clean automatic restack", () => {
-    expect(runModifyTranscript(stacklineDriver)).toEqual(
+    expect(runModifyTranscript(maolStackDriver)).toEqual(
       runModifyTranscript(referenceDriver),
     );
   });
 
   test("matches tracking and forced untracking", () => {
-    expect(runTrackingTranscript(stacklineDriver)).toEqual(
+    expect(runTrackingTranscript(maolStackDriver)).toEqual(
       runTrackingTranscript(referenceDriver),
     );
   });
 
   test("matches tracking a branch diverged from its parent", () => {
-    expect(runDivergedTrackingTranscript(stacklineDriver)).toEqual(
+    expect(runDivergedTrackingTranscript(maolStackDriver)).toEqual(
       runDivergedTrackingTranscript(referenceDriver),
     );
   });
 
   test("matches common non-interactive errors", () => {
-    expect(runErrorTranscript(stacklineDriver)).toEqual(
+    expect(runErrorTranscript(maolStackDriver)).toEqual(
       runErrorTranscript(referenceDriver),
     );
   });
 
   test("matches force tracking and directed navigation", () => {
-    expect(runExtendedNavigationTranscript(stacklineDriver)).toEqual(
+    expect(runExtendedNavigationTranscript(maolStackDriver)).toEqual(
       runExtendedNavigationTranscript(referenceDriver),
     );
   });
 
   test("matches resetting tracked metadata", () => {
-    expect(runResetTranscript(stacklineDriver)).toEqual(
+    expect(runResetTranscript(maolStackDriver)).toEqual(
       runResetTranscript(referenceDriver),
     );
   });
 
   test("matches the short-log alias and quiet output", () => {
-    expect(runAliasAndQuietTranscript(stacklineDriver)).toEqual(
+    expect(runAliasAndQuietTranscript(maolStackDriver)).toEqual(
       runAliasAndQuietTranscript(referenceDriver),
     );
   });

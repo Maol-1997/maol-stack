@@ -4,52 +4,52 @@ import {
   ParityRepository,
   referenceDriver,
   requireSuccessfulCommand,
-  stacklineDriver,
+  maolStackDriver,
   type CliDriver,
   type CliResult,
 } from "./parity-fixture.js";
 
 describe("Reference CLI mutation prompt parity", () => {
   test("matches staging selection while creating a branch", () => {
-    expect(runInteractiveCreate(stacklineDriver, "\r")).toEqual(
+    expect(runInteractiveCreate(maolStackDriver, "\r")).toEqual(
       runInteractiveCreate(referenceDriver, "\r"),
     );
   });
 
   test("matches aborting create from the staging selector", () => {
     const abort = "\u001B[B\u001B[B\u001B[B\r";
-    expect(runInteractiveCreate(stacklineDriver, abort)).toEqual(
+    expect(runInteractiveCreate(maolStackDriver, abort)).toEqual(
       runInteractiveCreate(referenceDriver, abort),
     );
   });
 
   test("matches creating an empty branch from the staging selector", () => {
     const createEmpty = "\u001B[B\u001B[B\r";
-    expect(runInteractiveCreate(stacklineDriver, createEmpty)).toEqual(
+    expect(runInteractiveCreate(maolStackDriver, createEmpty)).toEqual(
       runInteractiveCreate(referenceDriver, createEmpty),
     );
   });
 
   test("matches staging selection while modifying a branch", () => {
-    expect(runInteractiveModify(stacklineDriver)).toEqual(
+    expect(runInteractiveModify(maolStackDriver)).toEqual(
       runInteractiveModify(referenceDriver),
     );
   });
 
   test("matches editing only the commit message with no file changes", () => {
-    expect(runMessageOnlyModify(stacklineDriver)).toEqual(
+    expect(runMessageOnlyModify(maolStackDriver)).toEqual(
       runMessageOnlyModify(referenceDriver),
     );
   });
 
   test("matches selecting children for an inserted branch", () => {
-    expect(runInteractiveInsert(stacklineDriver)).toEqual(
+    expect(runInteractiveInsert(maolStackDriver)).toEqual(
       runInteractiveInsert(referenceDriver),
     );
   });
 
   test("matches default child selection when inserting above a change", () => {
-    expect(runInteractiveInsertAboveChange(stacklineDriver)).toEqual(
+    expect(runInteractiveInsertAboveChange(maolStackDriver)).toEqual(
       runInteractiveInsertAboveChange(referenceDriver),
     );
   });
