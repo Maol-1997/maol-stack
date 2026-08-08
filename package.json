@@ -1,6 +1,6 @@
 {
   "name": "maol-stack",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "A clean-room CLI for stacked Git branches and safe restacks",
   "type": "module",
   "bin": {

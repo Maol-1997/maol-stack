@@ -1,1 +1,1 @@
-export const STACKLINE_VERSION = "0.4.2";
+export const STACKLINE_VERSION = "0.4.3";
